@@ -1,7 +1,7 @@
+pandas
 scikit-learn
+joblib
 fastapi
 uvicorn
-mlflow
-docker
 pytest
-flake8
+mlflow
