@@ -1,0 +1,4 @@
+import joblib
+
+# After training:
+joblib.dump(model, "model/churn_model.pkl")
