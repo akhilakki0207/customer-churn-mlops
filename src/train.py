@@ -1,8 +1,12 @@
-import pickle
-from sklearn.ensemble import RandomForestClassifier
-from sklearn.datasets import make_classification
-X, y = make_classification(n_samples=1000, n_features=20)
-clf = RandomForestClassifier()
-clf.fit(X, y)
-with open('model/churn_model.pkl', 'wb') as f:
-    pickle.dump(clf, f)
+import joblib
+from sklearn.linear_model import LogisticRegression
+from src.preprocess import preprocess_data
+
+data = preprocess_data("data/raw/churn.csv")
+X = data.drop('Churn', axis=1)
+y = data['Churn']
+
+model = LogisticRegression()
+model.fit(X, y)
+
+joblib.dump(model, "model/churn_model.pkl")
