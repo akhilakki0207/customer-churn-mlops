@@ -1,0 +1,12 @@
+from sklearn.metrics import classification_report
+from src.preprocess import preprocess_data
+import joblib
+
+data = preprocess_data("data/raw/churn.csv")
+X = data.drop('Churn', axis=1)
+y = data['Churn']
+
+model = joblib.load("model/churn_model.pkl")
+preds = model.predict(X)
+
+print(classification_report(y, preds))
