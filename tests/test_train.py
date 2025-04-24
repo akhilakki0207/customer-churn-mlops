@@ -1,2 +1,4 @@
-def test_dummy():
-    assert 1 == 1
+from src.train import model
+
+def test_model_type():
+    assert hasattr(model, "predict")
