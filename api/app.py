@@ -1,15 +1,16 @@
 from fastapi import FastAPI
-import pickle
-import numpy as np
+from pydantic import BaseModel
+from src.predict import predict
 
 app = FastAPI()
 
-@app.get('/')
-def read_root():
-    return {"message": "Churn prediction API"}
+class CustomerData(BaseModel):
+    age: int
+    balance: float
+    num_of_products: int
+    # add more fields...
 
-@app.post('/predict')
-def predict(features: list):
-    model = pickle.load(open('model/churn_model.pkl', 'rb'))
-    prediction = model.predict([np.array(features)])
-    return {"prediction": int(prediction[0])}
+@app.post("/predict")
+def predict_churn(data: CustomerData):
+    result = predict(data.dict())
+    return {"churn": bool(result)}
